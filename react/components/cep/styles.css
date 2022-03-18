@@ -1,0 +1,63 @@
+.modal{
+  position: absolute;
+  padding: 15px;
+  background: white;
+  top: calc(50vh - 150px);
+  width: 350px;
+  left: calc(50vw - 150px);
+  z-index: 10;
+  border-radius: 10px;
+}
+
+.climaT{
+  margin: auto 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+}
+
+.Frio::after{
+  content: '';
+  padding: 10px;
+  background: url(https://cdn-icons-png.flaticon.com/512/4669/4669912.png) no-repeat;
+  background-size: contain;
+}
+
+.Quente::after{
+  content: '';
+  padding: 10px;
+  background: url(https://cdn-icons.flaticon.com/png/512/5538/premium/5538387.png?token=exp=1647617527~hmac=07b565629bd374d8ebd323f0af26d4fa) no-repeat;
+  background-size: contain;
+}
+
+.modal header{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modal header span{
+  cursor: pointer;
+}
+
+.modal footer{
+  display: flex;
+  justify-content: flex-start;
+}
+.modal footer a {
+  margin: 0 10px;
+  background: blue;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+.blackout{
+  height: 120vh;
+  background: rgba(0, 0, 0, 0.384);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -96px;
+  bottom: 0;
+  z-index: 2;
+}

@@ -68,7 +68,7 @@
     },
     "children": [
       "flex-layout.col#logo-desktop",
-      "flex-layout.col#category-menu",
+      "modal-cep",
       "flex-layout.col#spacer",
       "search-bar",
       "locale-switcher",
