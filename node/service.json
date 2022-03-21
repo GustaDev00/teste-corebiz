@@ -1,27 +1,22 @@
 {
-	"stack": "nodejs",
-	"memory": 1024,
-	"runtimeArgs": [
-		"--max_old_space_size=800"
-	],
-	"ttl": 300,
-	"timeout": 40,
-	"routes": {
-		"robots": {
-			"path": "/robots.txt",
-			"public": true
-		},
-		"getOrder": {
-			"path": "/getOrder",
-			"public": true
-		},
-		"searchProd": {
-			"path": "/linx/search/:value",
-			"public": true
-		},
-		"getColletionsByRegion":{
-			"path": "/getColletionsByRegion",
-			"public": true
-		}
-	}
+  "memory": 128,
+  "ttl": 10,
+  "timeout": 10,
+  "minReplicas": 2,
+  "maxReplicas": 10,
+  "workers": 4,
+  "routes": {
+    "analytics": {
+      "path": "/_v/app/analytics/realTime",
+      "public": true
+    },
+    "validateCep": {
+      "path": "/cep/:cep",
+      "public": true
+    },
+    "weatherForecast": {
+      "path": "/weather-forecast/:climate",
+      "public": true
+    }
+  }
 }
