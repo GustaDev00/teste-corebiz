@@ -1,7 +1,7 @@
 import { InstanceOptions, IOContext, ExternalClient } from "@vtex/api";
 import axios from 'axios'
 
-export class ValidateCep extends ExternalClient {
+export class Cep extends ExternalClient {
 	public constructor(ctx: IOContext, options?: InstanceOptions) {
 		super("http://licensemanager.vtex.com.br/api/pvt/accounts", ctx, {
 			...options,

@@ -24,22 +24,27 @@ declare global {
 
 const validateCep = () => {
 
-	const cepAsync = async (ctx: any) => {
+	const prepareAsync = async (ctx:any) => {
 		try {
-			// pegando os parametros da url
-			const request = ctx.query;
-			const { cep } = request || {};
-			const newResponse = await ctx.clients.getCep.getCep(cep);
-			// console.log("response =>", newResponse)
-			ctx.status = 200;
-			ctx.body = newResponse
-		} catch (err) {
-			ctx.status = 400;
-			ctx.body = "Sem resposta";
-		}
-	};
+			const {
+				vtex: {
+					route: { params },
+				},
+				response: res,
+			} = ctx
 
-	return cepAsync;
+			console.info('Received params:', params.cep)
+			const response = await ctx.Clients.returnCep.ValidateCep(params.cep)
+
+			ctx.body = response
+			res.status = 200
+		} catch (error) {
+			ctx.body = "Problem querying the api"
+			ctx.status = 400
+		}
+	}
+	return prepareAsync;
+
 }
 
 export default new Service<Clients, State, ParamsContext>({
@@ -56,11 +61,9 @@ export default new Service<Clients, State, ParamsContext>({
     analytics: method({
       GET: [analytics],
     }),
-    validateCep: method({
-      GET: validateCep,
-    }),
     weatherForecast: method({
       GET: [analytics],
-    })
+    }),
+    validateCep: method({GET: validateCep()})
   },
 })
