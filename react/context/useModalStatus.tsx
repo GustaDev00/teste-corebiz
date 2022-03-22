@@ -18,7 +18,7 @@ export const CepProvider = ({ children }: any) => {
 
   const regionSelector = (value) => {
     const cep = value.replace('-', '')
-    let url = `https://viacep.com.br/ws/${cep}/json/`
+    let url = `/cep/${cep}`
     axios.get(url).then((resp) => {
       modalOpen()
       zipCode(resp.data.localidade)

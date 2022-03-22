@@ -7,10 +7,10 @@ export default class validateCep extends AppClient {
     super('vtex.mocked-analytics@0.x', context, options)
   }
 
-  public async correiosCep(value: any) {
-    console.log('Correio response: ', value)
-    const cep = value
-    let url = `https://viacep.com.br/ws/${cep}/json/`
+  public async goweather(value: any) {
+    console.log('Clima tempo response: ', value)
+    const locate = value
+    let url = `https://goweather.herokuapp.com/weather/${locate}`
     const resp = await axios.get(url)
     return resp.data ? resp.data : false
    }

@@ -8,6 +8,9 @@ import {
 } from '@vtex/api'
 import { Clients } from './clients'
 import { analytics } from './handlers/analytics'
+import { verifycep } from './handlers/validatecep'
+import { weatherforecast } from './handlers/weatherforecast'
+import { updateLiveUsers } from './event/liveUsersUpdate'
 
 // Create a LRU memory cache for the Status client.
 // The @vtex/api HttpClient respects Cache-Control headers and uses the provided cache.
@@ -22,30 +25,9 @@ declare global {
   }
 }
 
-const validateCep = () => {
 
-	const prepareAsync = async (ctx:any) => {
-		try {
-			const {
-				vtex: {
-					route: { params },
-				},
-				response: res,
-			} = ctx
-
-			console.info('Received params:', params.cep)
-			const response = await ctx.Clients.returnCep.ValidateCep(params.cep)
-
-			ctx.body = response
-			res.status = 200
-		} catch (error) {
-			ctx.body = "Problem querying the api"
-			ctx.status = 400
-		}
-	}
-	return prepareAsync;
-
-}
+const TREE_SECONDS_MS = 3 * 1000
+const CONCURRENCY = 10
 
 export default new Service<Clients, State, ParamsContext>({
   clients: {
@@ -55,6 +37,14 @@ export default new Service<Clients, State, ParamsContext>({
         retries: 2,
         timeout: 10000,
       },
+      events: {
+        exponentialTimeoutCoefficient: 2,
+        exponentialBackoffCoefficient: 2,
+        initialBackoffDelay: 50,
+        retries: 1,
+        timeout: TREE_SECONDS_MS,
+        concurrency: CONCURRENCY,
+      },
     },
   },
   routes: {
@@ -62,8 +52,13 @@ export default new Service<Clients, State, ParamsContext>({
       GET: [analytics],
     }),
     weatherForecast: method({
-      GET: [analytics],
+      GET: [weatherforecast],
     }),
-    validateCep: method({GET: validateCep()})
+    validateCep: method({
+      GET: [verifycep],
+    })
+  },
+  events: {
+    liveUsersUpdate: updateLiveUsers,
   },
 })
