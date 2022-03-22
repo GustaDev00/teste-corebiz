@@ -10,7 +10,7 @@ const mensage = () => {
   const [prod, setProd] = useState('')
 
   const connProd = () => {
-    if (!prod) {
+    if(!prod){
       const search = clima == "Quente" ? "Cropped Iara - Off White" : "T-Shirt Vic - Carbono"
       const options: any = {
         method: 'GET',
@@ -29,19 +29,19 @@ const mensage = () => {
     connProd()
 
     return prod && (
-      <>
-        <header>
-          <h2>Está muito {clima} né? </h2>
-          <span onClick={() => modalOpen()}>X</span>
-        </header>
-        <main>
-          <p>Que tal um {prod?.productName}</p>
-        </main>
-        <footer>
-          <a href="#" onClick={() => modalOpen()}>Não, valeu</a>
-          <a href={prod?.link}>Opa, eu quero!</a>
-        </footer>
-      </>
+    <>
+      <header>
+        <h2>Está muito {clima} né? </h2>
+        <span onClick={() => modalOpen()}>X</span>
+      </header>
+      <main>
+        <p>Que tal um {prod?.productName}</p>
+      </main>
+      <footer>
+        <a href="#"  onClick={() => modalOpen()}>Não, valeu</a>
+        <a href={prod?.link}>Opa, eu quero!</a>
+      </footer>
+    </>
     )
   }
   const attClima = () => {
@@ -69,10 +69,7 @@ const mensage = () => {
     }).catch(error => {
       SetCepSeleted('')
     })
-    const fifteenMinutes = new Date(new Date().getTime() + 60 * 60 * 1000);
-    document.cookie = 'nome=João; expires=' + fifteenMinutes + '; path=/';
-      expires: fifteenMinutes
-    });
+
     setTimeout(() => {
       if (cepSeleted) {
         setProd('')
@@ -98,7 +95,7 @@ const mensage = () => {
 
   return valueClima && clima ? (
     <>
-      <p className={styles.climaT}>
+      <p className={ styles.climaT }>
         {valueClima}
         {clima == "Quente" ? (
           <span className={styles.Quente}></span>
